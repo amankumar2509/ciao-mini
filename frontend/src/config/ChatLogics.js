@@ -38,10 +38,26 @@ export const isSameUser = (messages, m, i) => {
   return i > 0 && messages[i - 1].sender._id === m.sender._id;
 };
 
+// export const getSender = (loggedUser, users) => {
+
+//   console.log('users:', users);
+//   console.log('users[0]:', users[0]);
+//   console.log('users[1]:', users[1]);
+//   console.log('loggedUser:', loggedUser);
+//   return users[0] && users[0]._id === loggedUser._id ? users[1].name : users[0].name;
+// };
 export const getSender = (loggedUser, users) => {
+  if (!loggedUser || !loggedUser._id || !users[0] || !users[0]._id) {
+    console.error('Invalid or missing properties in getSender:', { loggedUser, users });
+    return 'Unknown Sender';
+  }
+
   return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
 };
 
+
+
 export const getSenderFull = (loggedUser, users) => {
-  return users[0]._id === loggedUser._id ? users[1] : users[0];
+  return users[0] && users[0]._id === loggedUser._id ? users[1] : users[0];
 };
+
